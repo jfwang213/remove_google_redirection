@@ -1,0 +1,16 @@
+<html>
+	<script>
+		function TabUpdateStatusCB(tabID, changeInfo, tab) {
+			console.log("tab updated " + tab);
+			if (changeInfo.status.toString() == "complete") {
+				console.log("tab load complete");
+				if (tab.url.indexOf("www.google.com.hk") >= 0 ||
+					tab.url.indexOf("www.google.com") >= 0) {
+					console.log("google page");
+					chrome.tabs.executeScript(tabID, {file:"insert.js", allFrames:true});
+				}
+			}
+		}
+		chrome.tabs.onUpdated.addListener(TabUpdateStatusCB);
+	</script>
+</html>
